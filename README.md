@@ -2,6 +2,11 @@
 
 Claude Code MCP is an implementation of [Claude Code](https://gist.github.com/transitive-bullshit/487c9cb52c75a9701d312334ed53b20c) as a [Model Context Protocol (MCP)](https://modelcontextprotocol.io) server. This project allows you to use Claude Code's powerful software engineering capabilities through the standardized MCP interface.
 
+# ⚠️ DISCLAIMER ⚠️
+Claude Code MCP is a auto-generated project by DevinAI, who was prompted to analyse the Claude Code codebase, and generate an MCP server.
+
+This is a proof of concept that I don't advise anyone to use.
+
 ## What is Claude Code?
 
 Claude Code is Anthropic's CLI tool for software engineering tasks, powered by Claude. It provides a set of tools and capabilities that help developers with:
