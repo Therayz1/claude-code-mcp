@@ -24,7 +24,7 @@ Claude Code MCP CLI, gelişmiş AI asistan özellikleri içeren Model Context Pr
 #### Linux / macOS
 ```bash
 # Depoyu klonlayın
-git clone https://github.com/KULLANICI_ADI/claude-code-mcp.git
+git clone https://github.com/Therayz1/claude-code-mcp.git
 cd claude-code-mcp
 
 # Kurulum betiğini çalıştırın
@@ -35,7 +35,7 @@ chmod +x install.sh
 #### Windows
 ```bash
 # Depoyu klonlayın
-git clone https://github.com/KULLANICI_ADI/claude-code-mcp.git
+git clone https://github.com/Therayz1/claude-code-mcp.git
 cd claude-code-mcp
 
 # Kurulum betiğini çalıştırın
@@ -46,7 +46,7 @@ install.bat
 
 1. Depoyu klonlayın:
    ```bash
-   git clone https://github.com/KULLANICI_ADI/claude-code-mcp.git
+   git clone https://github.com/Therayz1/claude-code-mcp.git
    cd claude-code-mcp
    ```
 
@@ -72,6 +72,57 @@ Uygulamayı başlatmak için:
 
 ```bash
 npm run start
+```
+
+### Her Yerden Çalıştırma
+
+#### Global NPM Paketi Olarak Kurma (Tüm platformlar)
+```bash
+# Depoyu klonlayın
+git clone https://github.com/Therayz1/claude-code-mcp.git
+cd claude-code-mcp
+
+# Bağımlılıkları yükleyin ve derleyin
+npm install
+npm run build
+
+# Global olarak yükleyin
+npm install -g .
+
+# Artık her yerden çalıştırabilirsiniz:
+claude-mcp
+```
+
+#### Windows Batch Dosyası ile Erişim
+```bash
+# Depoyu klonlayın
+git clone https://github.com/Therayz1/claude-code-mcp.git
+
+# Bir batch dosyası oluşturun (claude-mcp.bat):
+echo @echo off > claude-mcp.bat
+echo node "%~dp0\claude-code-mcp\claude-client.js" %%* >> claude-mcp.bat
+
+# Batch dosyasını PATH'e ekleyin veya Windows dosya sisteminde erişilebilir bir yere koyun
+# Artık her yerden çalıştırabilirsiniz:
+claude-mcp
+```
+
+#### Linux/macOS Sembolik Bağlantı ile Erişim
+```bash
+# Depoyu klonlayın
+git clone https://github.com/Therayz1/claude-code-mcp.git
+cd claude-code-mcp
+
+# Bağımlılıkları yükleyin ve derleyin
+npm install
+npm run build
+
+# Sembolik bağlantı oluşturun
+sudo ln -s "$(pwd)/claude-client.js" /usr/local/bin/claude-mcp
+chmod +x "$(pwd)/claude-client.js"
+
+# Artık her yerden çalıştırabilirsiniz:
+claude-mcp
 ```
 
 ### Kullanılabilir Komutlar
@@ -126,4 +177,4 @@ Bu proje ISC lisansı altında lisanslanmıştır.
 
 ## 👥 Katkıda Bulunanlar
 
-- [Ad Soyad](https://github.com/kullanici) - İlk Geliştirici
+- [Therayz1](https://github.com/Therayz1) - Yapılan geliştirmelerin sahibi
