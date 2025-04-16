@@ -134,7 +134,7 @@ export function setupTools(server: McpServer): void {
     async ({ prompt }) => {
       try {
         // Gemini API anahtarını doğrudan belirtiyoruz
-        const apiKey = "AIzaSyAPRKOZTorh9wyXOJbtaP2ROuawDN6OYv0";
+        const apiKey = "Buraya API Keyinizi Giriniz";
         
         // Gemini API çağrısı (Google Generative AI API)
         const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro-exp-03-25:generateContent?key=${apiKey}`, {
