@@ -2,6 +2,7 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 import { executeCommand } from "../utils/bash.js"; // Using .js extension for ESM compatibility
 import { readFile, listFiles, searchGlob, grepSearch, writeFile } from "../utils/file.js";
+import fetch from "node-fetch";
 
 /**
  * Sets up Claude Code tools on the provided MCP server
@@ -38,6 +39,147 @@ export function setupTools(server: McpServer): void {
         const result = await executeCommand(command, timeout);
         return {
           content: [{ type: "text", text: result }]
+        };
+      } catch (error) {
+        return {
+          content: [{ 
+            type: "text", 
+            text: error instanceof Error ? error.message : String(error)
+          }],
+          isError: true
+        };
+      }
+    }
+  );
+
+  // Prompt Tool - Real Claude API integration
+  server.tool(
+    "prompt",
+    "Generate text response using Claude API",
+    {
+      prompt: z.string().describe("The prompt to send to Claude API")
+    },
+    async ({ prompt }) => {
+      try {
+        // API anahtarınızı buraya girin
+        const apiKey = process.env.CLAUDE_API_KEY || "YOUR_CLAUDE_API_KEY";
+        
+        if (!apiKey || apiKey === "YOUR_CLAUDE_API_KEY") {
+          return {
+            content: [{ 
+              type: "text", 
+              text: "Claude API anahtarı bulunamadı. Lütfen CLAUDE_API_KEY çevre değişkeni olarak ayarlayın veya kod içinde belirtin."
+            }],
+            isError: true
+          };
+        }
+
+        // Claude API çağrısı
+        const response = await fetch("https://api.anthropic.com/v1/messages", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "x-api-key": apiKey,
+            "anthropic-version": "2023-06-01"
+          },
+          body: JSON.stringify({
+            model: "claude-3-opus-20240229",
+            max_tokens: 4000,
+            messages: [
+              {
+                role: "user",
+                content: prompt
+              }
+            ]
+          })
+        });
+
+        if (!response.ok) {
+          const errorText = await response.text();
+          return {
+            content: [{ 
+              type: "text", 
+              text: `Claude API hatası: ${response.status} ${response.statusText}\n${errorText}`
+            }],
+            isError: true
+          };
+        }
+
+        const result = await response.json();
+        return {
+          content: [{ 
+            type: "text", 
+            text: result.content[0].text
+          }]
+        };
+      } catch (error) {
+        return {
+          content: [{ 
+            type: "text", 
+            text: error instanceof Error ? error.message : String(error)
+          }],
+          isError: true
+        };
+      }
+    }
+  );
+
+  // Gemini Tool - Google Gemini API integration
+  server.tool(
+    "gemini",
+    "Generate text response using Google Gemini API",
+    {
+      prompt: z.string().describe("The prompt to send to Gemini API")
+    },
+    async ({ prompt }) => {
+      try {
+        // Gemini API anahtarını doğrudan belirtiyoruz
+        const apiKey = "AIzaSyAPRKOZTorh9wyXOJbtaP2ROuawDN6OYv0";
+        
+        // Gemini API çağrısı (Google Generative AI API)
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro-exp-03-25:generateContent?key=${apiKey}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            contents: [
+              {
+                parts: [
+                  {
+                    text: prompt
+                  }
+                ]
+              }
+            ],
+            generationConfig: {
+              temperature: 0.7,
+              maxOutputTokens: 4000
+            }
+          })
+        });
+
+        if (!response.ok) {
+          const errorText = await response.text();
+          return {
+            content: [{ 
+              type: "text", 
+              text: `Gemini API hatası: ${response.status} ${response.statusText}\n${errorText}`
+            }],
+            isError: true
+          };
+        }
+
+        const result = await response.json();
+        // Gemini API'nin döndürdüğü format Claude'dan farklı
+        // Burada response formatına göre düzenleme yapılmalı
+        const responseText = result.candidates[0].content.parts[0].text;
+        
+        return {
+          content: [{ 
+            type: "text", 
+            text: responseText
+          }]
         };
       } catch (error) {
         return {

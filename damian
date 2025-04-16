@@ -1,0 +1,89 @@
+Harika bir fikir! İşte size temel dört işlemi yapabilen bir Python hesap makinesi betiği:
+
+```python
+# Basit Hesap Makinesi Betiği
+
+def hesapla(sayi1, sayi2, islem):
+    """Verilen iki sayı ve işlem karakterine göre hesaplama yapar."""
+    if islem == '+':
+        return sayi1 + sayi2
+    elif islem == '-':
+        return sayi1 - sayi2
+    elif islem == '*':
+        return sayi1 * sayi2
+    elif islem == '/':
+        if sayi2 == 0:
+            return "Hata: Sıfıra bölme yapılamaz!"
+        else:
+            return sayi1 / sayi2
+    else:
+        return "Hata: Geçersiz işlem!"
+
+def ana_dongu():
+    """Kullanıcıdan girdi alır ve hesaplamayı yapar."""
+    print("Basit Hesap Makinesi")
+    print("Çıkmak için 'q' veya 'çık' yazın.")
+    print("-" * 20)
+
+    while True:
+        # İlk sayıyı al
+        try:
+            girdi1 = input("İlk sayıyı girin: ")
+            if girdi1.lower() in ['q', 'çık']:
+                break
+            sayi1 = float(girdi1)
+        except ValueError:
+            print("Hata: Lütfen geçerli bir sayı girin.")
+            continue # Döngünün başına dön
+
+        # İşlemi al
+        islem = input("İşlemi girin (+, -, *, /): ")
+        if islem.lower() in ['q', 'çık']:
+            break
+        if islem not in ['+', '-', '*', '/']:
+             print("Hata: Geçersiz işlem. Lütfen +, -, *, / birini girin.")
+             continue # Döngünün başına dön
+
+        # İkinci sayıyı al
+        try:
+            girdi2 = input("İkinci sayıyı girin: ")
+            if girdi2.lower() in ['q', 'çık']:
+                break
+            sayi2 = float(girdi2)
+        except ValueError:
+            print("Hata: Lütfen geçerli bir sayı girin.")
+            continue # Döngünün başına dön
+
+        # Hesapla ve sonucu yazdır
+        sonuc = hesapla(sayi1, sayi2, islem)
+        print(f"Sonuç: {sayi1} {islem} {sayi2} = {sonuc}")
+        print("-" * 20) # Yeni işlem için ayraç
+
+    print("\nHesap makinesi kapatıldı.")
+
+# Programı başlat
+if __name__ == "__main__":
+    ana_dongu()
+```
+
+**Bu betiği nasıl kaydedersiniz:**
+
+1.  **Metin Düzenleyici Açın:** Bilgisayarınızda bir metin düzenleyici açın (Not Defteri, Sublime Text, VS Code, Pycharm vb.).
+2.  **Kodu Yapıştırın:** Yukarıdaki Python kodunu kopyalayıp metin düzenleyiciye yapıştırın.
+3.  **Farklı Kaydet:** Dosyayı "Farklı Kaydet" seçeneği ile kaydedin.
+4.  **Dosya Adı:** Dosyaya anlamlı bir isim verin, örneğin `hesap_makinesi.py`. Dosya uzantısının `.py` olduğundan emin olun.
+5.  **Konum Seçin:** Dosyayı kaydetmek istediğiniz bir klasör seçin.
+6.  **Kaydet:** "Kaydet" düğmesine tıklayın.
+
+**Betiği nasıl çalıştırırsınız:**
+
+1.  **Terminal veya Komut İstemi Açın:** Bilgisayarınızda bir terminal (Linux/macOS) veya komut istemi (Windows) açın.
+2.  **Dizine Gidin:** `cd` komutunu kullanarak betiği kaydettiğiniz klasöre gidin. Örneğin:
+    *   Windows: `cd C:\Kullanıcılar\SizinKullanıcıAdınız\Belgeler`
+    *   Linux/macOS: `cd /home/sizinKullaniciAdiniz/Belgeler`
+3.  **Çalıştırın:** Şu komutu yazıp Enter tuşuna basın:
+    ```bash
+    python hesap_makinesi.py
+    ```
+
+Artık komut isteminde çalışan basit bir hesap makineniz var! Hesap makinesi sizden sayıları ve işlemi isteyecek, sonucu gösterecek ve siz 'q' veya 'çık' yazana kadar devam edecektir.

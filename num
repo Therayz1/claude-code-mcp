@@ -1,0 +1,12 @@
+Python kodu örneği:
+
+# Bir liste işleme örneği
+numbers = [1, 2, 3, 4, 5]
+doubled = [num * 2 for num in numbers]
+print(doubled)  # [2, 4, 6, 8, 10]
+
+# Bir fonksiyon tanımlama
+def greet(name):
+    return f"Merhaba, {name}!"
+
+print(greet("Kullanıcı"))
