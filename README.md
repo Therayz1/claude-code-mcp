@@ -1,7 +1,7 @@
 # Claude - Gemini Code MCP CLI
 
 
-https://github.com/Therayz1/claude-code-mcp/issues/1#issue-3000610087
+![Image](https://github.com/user-attachments/assets/8606aac2-b4c7-400d-b81c-abfe50c09e73)
 
 ## 📝 Açıklama
 
